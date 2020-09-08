@@ -1,5 +1,9 @@
 import React from 'react'
+import { Form } from '../components/Form'
 
 export default () => (
-    <div>This is the home page</div>
+    <div>
+        <div>This is the home page</div>
+        <Form />
+    </div>
 )
