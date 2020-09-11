@@ -4,10 +4,11 @@
     "node": true
   },
   "extends": [
-    "plugin:@typescript-eslint/recommended",
-    "prettier",
-    "prettier/@typescript-eslint",
-    "prettier/react"
+    // "plugin:@typescript-eslint/recommended",
+    // "prettier",
+    // "prettier/@typescript-eslint",
+    // "prettier/react",
+    "react-app"
   ],
   "globals": {
     "fin": "readonly"
@@ -23,7 +24,6 @@
     "typescript-sort-keys"
   ],
   "rules": {
-    "@typescript-eslint/no-implicit-any": "off",
     "prettier/prettier": "error",
     "react/jsx-sort-props": "error",
     "simple-import-sort/sort": [
@@ -41,5 +41,13 @@
     ],
     "typescript-sort-keys/interface": "error",
     "typescript-sort-keys/string-enum": "error"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/*.tsx?"],
+      "rules": {
+        // "@typescript-eslint/no-implicit-any": 0
+      }
+    }
+  ]
 }
