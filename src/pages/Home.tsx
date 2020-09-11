@@ -16,7 +16,8 @@ export default () => (
 
 const Wrapper = styled.div`
   align-items: center;
-  background-image: url(https://images-na.ssl-images-amazon.com/images/I/81C4RPMZMXL._AC_SL1500_.jpg);
+  background: url(https://images-na.ssl-images-amazon.com/images/I/81C4RPMZMXL._AC_SL1500_.jpg) center center no-repeat;
+  background-size: cover;
   display: flex;
   height: 1000px;
   flex-direction: column;
