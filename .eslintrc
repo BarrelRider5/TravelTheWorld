@@ -23,6 +23,7 @@
     "typescript-sort-keys"
   ],
   "rules": {
+    "@typescript-eslint/no-implicit-any": "off",
     "prettier/prettier": "error",
     "react/jsx-sort-props": "error",
     "simple-import-sort/sort": [
