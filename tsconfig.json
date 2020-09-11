@@ -1,0 +1,20 @@
+{
+  "bazelOptions": {
+    "disableStrictDeps": true
+  },
+  "compilerOptions": {
+    "baseUrl": ".",
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "lib": ["DOM", "ESNext"],
+    "moduleResolution": "node",
+    "paths": {
+      "@components/*": ["src/components/*"]
+    },
+    "sourceMap": true,
+    "target": "ES2020"
+  }
+}
