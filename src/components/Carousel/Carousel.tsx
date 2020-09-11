@@ -35,8 +35,10 @@ const Wrapper = styled.div`
 const LeftButton = styled.button`
   position: absolute;
   left: 20px;
+  z-index: 1;
 `
 const RightButton = styled.button`
   position: absolute;
   right: 20px;
+  z-index: 1;
 `

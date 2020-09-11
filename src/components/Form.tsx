@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import styled from '@emotion/styled'
 
 export const Form = () => {
@@ -14,11 +14,14 @@ export const Form = () => {
     }))
   }, [])
 
-  const submitForm = useCallback((event) => {
-    event.preventDefault()
+  const submitForm = useCallback(
+    (event) => {
+      event.preventDefault()
 
-    console.log('submitting the form: ', email, ', ', password)
-  }, [])
+      console.log('submitting the form: ', email, ', ', password)
+    },
+    [email, password]
+  )
 
   return (
     <StyledForm>
