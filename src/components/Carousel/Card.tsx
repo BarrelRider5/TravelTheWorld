@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import styled from '@emotion/styled'
 
 const StyledCard = styled.div`
@@ -11,4 +11,4 @@ const StyledCard = styled.div`
   justify-content: center;
 `
 
-export const Card = ({ children }) => <StyledCard>{children}</StyledCard>
+export const Card: FC = ({ children }) => <StyledCard>{children}</StyledCard>
