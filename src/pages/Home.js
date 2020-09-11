@@ -1,9 +1,24 @@
 import React from 'react'
 import { Form } from '../components/Form'
+import styled from '@emotion/styled'
+import { Carousel } from '../components/Carousel/Carousel'
 
 export default () => (
-    <div>
-        <div>This is the home page</div>
-        <Form />
+    <div>    
+        <Wrapper>
+            <div>This is the home page</div>
+            <div>Welcome Aboard, Explorers!</div>
+            <Form />
+
+        </Wrapper>
+        <Carousel />
     </div>
 )
+
+const Wrapper = styled.div`
+    align-items: center;
+    background-image: url(https://images-na.ssl-images-amazon.com/images/I/81C4RPMZMXL._AC_SL1500_.jpg);
+    display: flex;
+    height: 1000px;
+    flex-direction: column;
+`

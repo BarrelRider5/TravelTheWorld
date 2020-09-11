@@ -7,14 +7,14 @@ export const Carousel = () => {
 
     return (
         <Wrapper>
-            <button>left</button>
+            <LeftButton>left</LeftButton>
             <InnerWrapper>
                 <Card>Number 1</Card>
                 <Card>Number 2</Card>
                 <Card>Number 3</Card>
                 <Card>Number 4</Card>
             </InnerWrapper>
-            <button>right</button>
+            <RightButton>right</RightButton>
         </Wrapper>
     )
 }
@@ -28,5 +28,16 @@ const InnerWrapper = styled.div`
 `
 
 const Wrapper = styled.div`
+    align-items: center;
+    display: flex;
     overflow: hidden;
+`
+//These below here are doing nothing, but I want them to do something. It's broken since I changed Wrapper display to flex.
+const LeftButton = styled.button`
+    position: absolute;
+    left: 20px;
+`
+const RightButton = styled.button`
+    position: absolute;
+    right: 20px;
 `
