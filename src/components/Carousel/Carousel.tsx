@@ -31,7 +31,7 @@ const Wrapper = styled.div`
   display: flex;
   overflow: hidden;
 `
-//These below here are doing nothing, but I want them to do something. It's broken since I changed Wrapper display to flex.
+//These below here are doing nothing, but I want them to do something. It is broken since I changed Wrapper display to flex.
 const LeftButton = styled.button`
   position: absolute;
   left: 20px;
