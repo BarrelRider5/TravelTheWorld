@@ -9,7 +9,7 @@ export default () => (
     </Left>
     <List>
       <li>Home</li>
-      <li>Cool Things</li>
+      <li>Cool Thingies</li>
       <li>Cool Things</li>
       <li>Click Here</li>
       <li>Click Here</li>
@@ -23,7 +23,8 @@ const Header = styled.header`
   background: #e8e8e8;
   display: flex;
   justify-content: space-between;
-  padding: 12px;
+  padding: 10px;
+  width: 100%;
 `
 
 const Left = styled.div`
@@ -36,7 +37,7 @@ const List = styled.ul`
   list-style: none;
   padding: 0;
   margin: 0;
-  transition: .3s ease all;
+  transition: 0.3s ease all;
 
   li {
     cursor: pointer;
