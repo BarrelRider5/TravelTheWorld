@@ -25,9 +25,9 @@ export const Form = () => {
 
   return (
     <StyledForm>
-      <Span>Register below</Span>
-      <Span>or</Span>
-      <Span>Sign in to an existing account</Span>
+      <span>Register below</span>
+      <span>or</span>
+      <span>Sign in to an existing account</span>
       <input
         name="email"
         placeholder="email"
@@ -46,10 +46,6 @@ export const Form = () => {
   )
 }
 
-const Span = styled.span`
-  margin-bottom: 10px;
-`
-
 const StyledForm = styled.form`
   align-items: center;
   background: #1a9787;
@@ -61,7 +57,13 @@ const StyledForm = styled.form`
   opacity: 0.9;
   padding: 20px 35px;
   position: fixed;
-   {
-    //Want to stop the form from following us down past the bottom of the background image.
+
+  span {
+    margin-bottom: 10px;
   }
+
+  input {
+
+  }
+  //Want to stop the form from following us down past the bottom of the background image.
 `
