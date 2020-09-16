@@ -32,6 +32,10 @@ const InnerWrapper = styled.div`
   position: relative;
   transition: 0.3s ease all;
   width: 200%;
+
+  &.switched {
+    left: -50%;
+  }
 `
 
 const Wrapper = styled.div`
