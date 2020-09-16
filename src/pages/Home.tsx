@@ -3,16 +3,18 @@ import { FormWrapper } from '../components/FormWrapper'
 import styled from '@emotion/styled'
 import { Carousel } from '../components/Carousel/Carousel'
 
-export default () => (
-  <div>
-    <Wrapper>
-      <div>This is the home page</div>
-      <div>Welcome Aboard, Explorers!</div>
-      <FormWrapper />
-    </Wrapper>
-    <Carousel />
-  </div>
-)
+export const Home = () => {
+  return (
+    <div>
+      <Wrapper>
+        <div>This is the home page</div>
+        <div>Welcome Aboard, Explorers!</div>
+        <FormWrapper />
+      </Wrapper>
+      <Carousel />
+    </div>
+  )
+}
 
 const Wrapper = styled.div`
   align-items: center;

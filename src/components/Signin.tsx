@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from 'react'
-import cuid from 'cuid'
 import styled from '@emotion/styled'
 
-import { getUser } from '../api/users/users'
+import { attemptSignin } from '../api/users/users'
 
-interface Props {
-  switchForm: () => void
+interface Signin {
+  userId: string
+  error: string
 }
 
 export const Signin = ({ switchForm }) => {
@@ -22,18 +22,20 @@ export const Signin = ({ switchForm }) => {
   }, [])
 
   const submitForm = useCallback(
-    (event) => {
+    async (event) => {
       event.preventDefault()
-      let user = getUser(email)
-      console.log(user)
 
-      let data = {
+      const data = {
         email,
-        password,
-        user_id: cuid()
+        password
       }
+      let initialResponse = await attemptSignin(data)
+      let response: Signin = JSON.parse(initialResponse)
 
-      console.log('formSubmitting')
+      if (response.userId) localStorage.setItem('userId', response.userId)
+      else if (response.error === 'email')
+        alert('The email you have entered is not associated with an account')
+      else alert('The password you have entered is incorrect')
     },
     [email, password]
   )
