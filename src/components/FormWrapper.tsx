@@ -10,6 +10,7 @@ export const FormWrapper = () => {
   })
 
   const switchForm = useCallback(() => {
+    console.log('switching the form')
     setForm((state) => ({
       ...state,
       isRegister: !isRegister
@@ -18,7 +19,7 @@ export const FormWrapper = () => {
 
   return (
     <Wrapper>
-      <InnerWrapper>
+      <InnerWrapper isRegister={isRegister}>
         <Register switchForm={switchForm} />
         <Signin switchForm={switchForm} />
       </InnerWrapper>
@@ -26,9 +27,13 @@ export const FormWrapper = () => {
   )
 }
 
-const InnerWrapper = styled.div`
+type InnerWrapperProps = {
+  isRegister: boolean
+}
+
+const InnerWrapper = styled.div<InnerWrapperProps>`
   display: flex;
-  left: 0;
+  left: ${(props) => Number(!props.isRegister) * -100}%;
   position: relative;
   transition: 0.3s ease all;
   width: 200%;

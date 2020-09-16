@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback } from 'react'
 
 // on app load, look for token in localStorage
 // if token, re-auth with existing token and get user data
@@ -12,6 +12,18 @@ export const DeleteButton = () => {
   }, [])
 
   return <button onClick={unregister}>Delete User</button>
+}
+
+export function attemptSignin({ email, password }) {
+  return fetch('http://localhost:3001/users/attemptSignin', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ email, password })
+  }).then((response) => {
+    return response.text()
+  })
 }
 
 export function createUser({ email, password, user_id }) {
