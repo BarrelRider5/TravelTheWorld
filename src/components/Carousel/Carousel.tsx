@@ -1,5 +1,6 @@
-//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-//import { fas-angle - left } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import React, { useCallback, useState } from 'react'
 import styled from '@emotion/styled'
 
@@ -38,13 +39,17 @@ export const Carousel = () => {
 
   return (
     <Wrapper>
-      <LeftButton name="left" onClick={moveCarousel}>left</LeftButton>
+      <LeftButton name="left" onClick={moveCarousel}>
+        <FontAwesomeIcon icon={faAngleLeft} />
+      </LeftButton>
       <InnerWrapper position={sliderPosition} slideCount={slides.length} sliding={isAnimating} speed={speed}>
         {
           slides.map((card, index) => <Card key={index}>{card.text}</Card>)
         }
       </InnerWrapper>
-      <RightButton name="right" onClick={moveCarousel}>right</RightButton>
+      <RightButton name="right" onClick={moveCarousel}>
+        <FontAwesomeIcon icon={faAngleRight} />
+      </RightButton>
     </Wrapper>
   )
 }
