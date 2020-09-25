@@ -16,8 +16,10 @@ export const Carousel = () => {
 
   const speed = .5
 
-  const moveCarousel = useCallback(({ target: { name } }) => {
+  const moveCarousel = useCallback(({ currentTarget: { name } }) => {
     if (isAnimating) return
+
+    console.log('name: ', name)
 
     let index = name === 'left' ? -1 : 1
     let sliderIncrement = name === 'left' ? 100 : -100
@@ -39,22 +41,20 @@ export const Carousel = () => {
 
   return (
     <Wrapper>
-      <LeftButton name="left" onClick={moveCarousel}>
+      <Button name="left" className="left" onClick={moveCarousel}>
         <FontAwesomeIcon icon={faAngleLeft} />
-      </LeftButton>
+      </Button>
       <InnerWrapper position={sliderPosition} slideCount={slides.length} sliding={isAnimating} speed={speed}>
         {
           slides.map((card, index) => <Card key={index}>{card.text}</Card>)
         }
       </InnerWrapper>
-      <RightButton name="right" onClick={moveCarousel}>
+      <Button name="right" className="right" onClick={moveCarousel}>
         <FontAwesomeIcon icon={faAngleRight} />
-      </RightButton>
+      </Button>
     </Wrapper>
   )
 }
-//<FontAwesomeIcon icon={fas fa-angle-left} />
-//<FontAwesomeIcon icon={fas fa-angle-right} />
 
 type InnerProps = {
   position: number
@@ -71,25 +71,37 @@ const InnerWrapper = styled.div<InnerProps>`
   min-width: ${props => props.slideCount * 100}%;
 `
 
-const Wrapper = styled.div`
-  align-items: center;
-  overflow: hidden;
-  position: relative;
-`
-
-//These below here are doing nothing, but I want them to do something. It is broken since I changed Wrapper display to flex.
-const LeftButton = styled.button`
+const Button = styled.button`
+  background: none;
+  border: 0;
+  color: #1a9787;
+  cursor: pointer;
+  font-size: 35px;
+  margin: 0;
+  opacity: .5;
+  padding: 20px;
   position: absolute;
   top: 50%;
   left: 20px;
   transform: translateY(-50%);
   z-index: 1;
+
+  &:hover{
+    opacity: 1;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &.right {
+    left: unset;
+    right: 20px;
+  }
 `
 
-const RightButton = styled.button`
-  position: absolute;
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
-  z-index: 1;
+const Wrapper = styled.div`
+  align-items: center;
+  overflow: hidden;
+  position: relative;
 `
