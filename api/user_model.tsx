@@ -2,10 +2,10 @@ const Pool = require('pg').Pool
 const bcrypt = require('bcrypt')
 
 const pool = new Pool({
-  user: 'jmulder5',
+  user: 'postgres',
   host: 'localhost',
   database: 'travel',
-  password: 'cougar92',
+  password: 'jello111',
   port: 5432
 })
 

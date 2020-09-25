@@ -1,24 +1,42 @@
 import React from 'react'
 import styled from '@emotion/styled'
 
-export default () => (
-  <Header>
+import { Dropdown } from './Dropdown/Dropdown'
+
+const choices = {
+  'buy': {
+    link: 'google.com',
+    text: 'buy something'
+  },
+  'sell': {
+    link: 'amazon.com',
+    text: 'sell something'
+  }
+}
+
+export const Header = () => (
+  <StyledHeader>
     <Left>
       <Logo src="resources/img/logo.png" />
       <Name>TravelWise</Name>
     </Left>
     <List>
-      <li>Home</li>
-      <li>Cool Thingies</li>
-      <li>Cool Things</li>
-      <li>Click Here</li>
-      <li>Click Here</li>
-      <li>You Know You Want To</li>
+      <ListItem>Home</ListItem>
+      <ListItem>Cool Thingies</ListItem>
+      <ListItem>Cool Things</ListItem>
+      <ListItem>Click Here</ListItem>
+      <ListItem>Click Here</ListItem>
+      <ListItem>
+        You Know You Want To
+        <Dropdown expanded={true} choices={choices} />
+      </ListItem>
     </List>
-  </Header>
+  </StyledHeader>
 )
 
-const Header = styled.header`
+// When we hover over an li, make expanded true in that li's dropdown, else make it false
+
+const StyledHeader = styled.header`
   align-items: center;
   background: #e8e8e8;
   display: flex;
@@ -38,14 +56,14 @@ const List = styled.ul`
   padding: 0;
   margin: 0;
   transition: 0.3s ease all;
+`
 
-  li {
-    cursor: pointer;
-    margin: 0 8px;
+const ListItem = styled.li`
+  cursor: pointer;
+  margin: 0 8px;
 
-    &:hover {
-      transform: scale(1.05);
-    }
+  &:hover {
+    transform: scale(1.05);
   }
 `
 

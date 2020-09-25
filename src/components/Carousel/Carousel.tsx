@@ -1,48 +1,69 @@
+//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+//import { fas-angle - left } from '@fortawesome/free-solid-svg-icons'
 import React, { useCallback, useState } from 'react'
 import styled from '@emotion/styled'
 
 import { Card } from './Card'
+import { CardData } from './CardData'
 
 export const Carousel = () => {
-  const [{ currentCard }, setCard] = useState({
-    currentCard: 1
+  const [{ isAnimating, sliderPosition, slides }, setCarousel] = useState({
+    isAnimating: false,
+    sliderPosition: -100,
+    slides: CardData
   })
 
-  const moveCarousel = useCallback(({ target: { name } }) => {
-    setCard((state) => {
-      let index = name === "left" ? Math.max(state.currentCard - 1, 0) : Math.min(state.currentCard + 1, 3)
+  const speed = .5
 
-      return ({
-        ...state,
-        currentCard: index
-      })
-    })
-  }, [currentCard])
+  const moveCarousel = useCallback(({ target: { name } }) => {
+    if (isAnimating) return
+
+    let index = name === 'left' ? -1 : 1
+    let sliderIncrement = name === 'left' ? 100 : -100
+
+    setCarousel(state => ({
+      ...state,
+      isAnimating: true,
+      sliderPosition: state.sliderPosition + sliderIncrement
+    }))
+    setTimeout(() => setCarousel(state => ({
+      ...state,
+      isAnimating: false,
+      sliderPosition: state.sliderPosition - sliderIncrement,
+      slides: state.slides.slice(index).concat(state.slides.slice(0, index))
+    })), speed * 1000)
+
+
+  }, [isAnimating, sliderPosition, slides])
 
   return (
     <Wrapper>
       <LeftButton name="left" onClick={moveCarousel}>left</LeftButton>
-      <InnerWrapper index={currentCard}>
-        <Card>Number 1</Card>
-        <Card>Number 2</Card>
-        <Card>Number 3</Card>
-        <Card>Number 4</Card>
+      <InnerWrapper position={sliderPosition} slideCount={slides.length} sliding={isAnimating} speed={speed}>
+        {
+          slides.map((card, index) => <Card key={index}>{card.text}</Card>)
+        }
       </InnerWrapper>
       <RightButton name="right" onClick={moveCarousel}>right</RightButton>
     </Wrapper>
   )
 }
+//<FontAwesomeIcon icon={fas fa-angle-left} />
+//<FontAwesomeIcon icon={fas fa-angle-right} />
 
-type Something = {
-  index: number
+type InnerProps = {
+  position: number
+  slideCount: number
+  sliding: boolean
+  speed: number
 }
 
-const InnerWrapper = styled.div<Something>`
+const InnerWrapper = styled.div<InnerProps>`
   display: flex;
-  left: ${props => props.index * -100}%;
+  left: ${(props) => props.position}%;
   position: relative;
-  transition: 0.3s ease all;
-  width: 400%;
+  transition: ${props => props.sliding ? `${props.speed}s ease all` : 'none'};
+  min-width: ${props => props.slideCount * 100}%;
 `
 
 const Wrapper = styled.div`
