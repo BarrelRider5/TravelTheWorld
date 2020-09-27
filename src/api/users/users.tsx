@@ -27,17 +27,13 @@ export function attemptSignin({ email, password }) {
 }
 
 export function createUser({ email, password, user_id }) {
-  fetch('http://localhost:3001/users', {
+  return fetch('http://localhost:3001/users', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ email, password, user_id })
-  })
-    .then((response) => response.text())
-    .then((data) => {
-      alert(data)
-    })
+  }).then((response) => response.text())
 }
 
 export function deleteUser(id) {
@@ -59,9 +55,7 @@ export function getUser(email) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ email })
-  }).then((response) => {
-    return response.text()
-  })
+  }).then((response) => response.text())
 }
 
 // import React, {useState, useEffect} from 'react';

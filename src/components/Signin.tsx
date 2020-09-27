@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import styled from '@emotion/styled'
 
-import { attemptSignin } from '../api/users/users'
+import { signin } from 'src/functions/user'
 
 interface Signin {
   userId: string
@@ -22,20 +22,9 @@ export const Signin = ({ switchForm }) => {
   }, [])
 
   const submitForm = useCallback(
-    async (event) => {
+    (event) => {
       event.preventDefault()
-
-      const data = {
-        email,
-        password
-      }
-      let initialResponse = await attemptSignin(data)
-      let response: Signin = JSON.parse(initialResponse)
-
-      if (response.userId) localStorage.setItem('userId', response.userId)
-      else if (response.error === 'email')
-        alert('The email you have entered is not associated with an account')
-      else alert('The password you have entered is incorrect')
+      signin({ email, password })
     },
     [email, password]
   )

@@ -1,13 +1,14 @@
 const Pool = require('pg').Pool
-const bcrypt = require('bcrypt')
 
 const pool = new Pool({
-  user: 'postgres',
+  user: 'jmulder5',
   host: 'localhost',
   database: 'travel',
-  password: 'jello111',
+  password: 'cougar92',
   port: 5432
 })
+
+const bcrypt = require('bcrypt')
 
 const attemptSignin = async ({ email, password }) => {
   let results = await getUser({ email })
@@ -46,13 +47,13 @@ const createUser = async ({ email, password, user_id }) => {
 
   return new Promise(function (resolve, reject) {
     pool.query(
-      `INSERT INTO users (email, password, user_id) VALUES ($1, $2, $3) RETURNING *`,
+      `INSERT INTO users (email, password, user_id) VALUES ($1, $2, $3) RETURNING user_id`,
       [email, password, user_id],
       (error, results) => {
         if (error) {
           return reject(error)
         }
-        resolve(`A new user has been added added: ${results.rows[0]}`)
+        resolve(results.rows[0])
       }
     )
   })

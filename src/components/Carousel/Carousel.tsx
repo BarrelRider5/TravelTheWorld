@@ -14,38 +14,50 @@ export const Carousel = () => {
     slides: CardData
   })
 
-  const speed = .5
+  const speed = 0.5
 
-  const moveCarousel = useCallback(({ target: { name } }) => {
-    if (isAnimating) return
+  const moveCarousel = useCallback(
+    ({ target: { name } }) => {
+      if (isAnimating) return
 
-    let index = name === 'left' ? -1 : 1
-    let sliderIncrement = name === 'left' ? 100 : -100
+      let index = name === 'left' ? -1 : 1
+      let sliderIncrement = name === 'left' ? 100 : -100
 
-    setCarousel(state => ({
-      ...state,
-      isAnimating: true,
-      sliderPosition: state.sliderPosition + sliderIncrement
-    }))
-    setTimeout(() => setCarousel(state => ({
-      ...state,
-      isAnimating: false,
-      sliderPosition: state.sliderPosition - sliderIncrement,
-      slides: state.slides.slice(index).concat(state.slides.slice(0, index))
-    })), speed * 1000)
-
-
-  }, [isAnimating, sliderPosition, slides])
+      setCarousel((state) => ({
+        ...state,
+        isAnimating: true,
+        sliderPosition: state.sliderPosition + sliderIncrement
+      }))
+      setTimeout(
+        () =>
+          setCarousel((state) => ({
+            ...state,
+            isAnimating: false,
+            sliderPosition: state.sliderPosition - sliderIncrement,
+            slides: state.slides
+              .slice(index)
+              .concat(state.slides.slice(0, index))
+          })),
+        speed * 1000
+      )
+    },
+    [isAnimating]
+  )
 
   return (
     <Wrapper>
       <LeftButton name="left" onClick={moveCarousel}>
         <FontAwesomeIcon icon={faAngleLeft} />
       </LeftButton>
-      <InnerWrapper position={sliderPosition} slideCount={slides.length} sliding={isAnimating} speed={speed}>
-        {
-          slides.map((card, index) => <Card key={index}>{card.text}</Card>)
-        }
+      <InnerWrapper
+        position={sliderPosition}
+        slideCount={slides.length}
+        sliding={isAnimating}
+        speed={speed}
+      >
+        {slides.map((card, index) => (
+          <Card key={index}>{card.text}</Card>
+        ))}
       </InnerWrapper>
       <RightButton name="right" onClick={moveCarousel}>
         <FontAwesomeIcon icon={faAngleRight} />
@@ -67,8 +79,9 @@ const InnerWrapper = styled.div<InnerProps>`
   display: flex;
   left: ${(props) => props.position}%;
   position: relative;
-  transition: ${props => props.sliding ? `${props.speed}s ease all` : 'none'};
-  min-width: ${props => props.slideCount * 100}%;
+  transition: ${(props) =>
+    props.sliding ? `${props.speed}s ease all` : 'none'};
+  min-width: ${(props) => props.slideCount * 100}%;
 `
 
 const Wrapper = styled.div`

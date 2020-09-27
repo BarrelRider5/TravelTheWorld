@@ -1,8 +1,7 @@
 import React, { FC, useCallback, useState } from 'react'
-import cuid from 'cuid'
 import styled from '@emotion/styled'
 
-import { createUser, getUser } from '../api/users/users'
+import { register } from 'src/functions/user'
 
 // type test = string | number | boolean | undefined | null | void
 // type func = () => string
@@ -25,21 +24,11 @@ export const Register: FC<Props> = ({ switchForm }) => {
     }))
   }, [])
   const submitForm = useCallback(
-    async (event) => {
+    (event) => {
       event.preventDefault()
       if (!email) return alert('Please enter a valid email')
       if (!password) return alert('Please enter a valid password')
-      let user = await getUser(email)
-      user = JSON.parse(user)
-      if (user.length) return alert('This user already exists')
-
-      let data = {
-        email,
-        password,
-        user_id: cuid()
-      }
-
-      createUser(data)
+      register({ email, password })
     },
     [email, password]
   )

@@ -21,10 +21,9 @@ export const App = () => {
       <Header />
       <Router>
         {pathname !== '/' && !userId && <Redirect to="/" />}
-        {pathname === '/' && userId && <Redirect to="/profile" />}
         <Switch>
           <Route path="/profile" component={Profile} />
-          <Route path="/*" component={Home} />
+          <Route path="/*" component={userId ? Profile : Home} />
         </Switch>
       </Router>
     </div>
