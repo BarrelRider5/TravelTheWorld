@@ -1,34 +1,18 @@
-const express = require('express')
+import express from 'express'
+import { attemptSignin, createUser, deleteUser, getUser } from './user_model'
+
 const app = express()
 const port = 3001
 
-const user_model = require('./user_model.tsx')
-
 app.use(express.json())
 app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
-  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS')
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'Content-Type, Access-Control-Allow-Headers'
-  )
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  console.log('here.....')
   next()
 })
 
-app.get('/', (req, res) => {
-  user_model
-    .getUsers()
-    .then((response) => {
-      res.status(200).send(response)
-    })
-    .catch((error) => {
-      res.status(500).send(error)
-    })
-})
-
-app.post('/users', (req, res) => {
-  user_model
-    .createUser(req.body)
+app.post('/users/create', (req, res) => {
+  createUser(req.body)
     .then((response) => {
       res.status(200).send(response)
     })
@@ -39,8 +23,7 @@ app.post('/users', (req, res) => {
 })
 
 app.post('/users/attemptSignin', (req, res) => {
-  user_model
-    .attemptSignin(req.body)
+  attemptSignin(req.body)
     .then((response) => {
       res.status(200).send(response)
     })
@@ -50,9 +33,8 @@ app.post('/users/attemptSignin', (req, res) => {
     })
 })
 
-app.post('/users/getUser', (req, res) => {
-  user_model
-    .getUser(req.body)
+app.post('/users/get', (req, res) => {
+  getUser(req.body)
     .then((response) => {
       res.status(200).send(response)
     })
@@ -62,9 +44,8 @@ app.post('/users/getUser', (req, res) => {
     })
 })
 
-app.delete('/users/:id', (req, res) => {
-  user_model
-    .deleteUser(req.params.id)
+app.delete('/users/delete/:id', (req, res) => {
+  deleteUser(req.params.id)
     .then((response) => {
       res.status(200).send(response)
     })
@@ -72,6 +53,7 @@ app.delete('/users/:id', (req, res) => {
       res.status(500).send(error)
     })
 })
+
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)
 })

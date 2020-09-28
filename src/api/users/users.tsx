@@ -27,7 +27,7 @@ export function attemptSignin({ email, password }) {
 }
 
 export function createUser({ email, password, user_id }) {
-  return fetch('http://localhost:3001/users', {
+  return fetch('http://localhost:3001/users/create', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -37,7 +37,7 @@ export function createUser({ email, password, user_id }) {
 }
 
 export function deleteUser(id) {
-  fetch(`http://localhost:3001/users/${id}`, {
+  fetch(`http://localhost:3001/users/delete/${id}`, {
     method: 'DELETE'
   })
     .then((response) => {
@@ -49,7 +49,7 @@ export function deleteUser(id) {
 }
 
 export function getUser(email) {
-  return fetch('http://localhost:3001/users/getUser', {
+  return fetch('http://localhost:3001/users/get', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

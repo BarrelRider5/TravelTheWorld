@@ -1,16 +1,21 @@
-const Pool = require('pg').Pool
+import bcrypt from 'bcrypt'
+import { Pool } from 'pg'
+
+export interface User {
+  email: string
+  password: string
+  user_id: string
+}
 
 const pool = new Pool({
-  user: 'jmulder5',
-  host: 'localhost',
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST || 'localhost',
   database: 'travel',
-  password: 'cougar92',
-  port: 5432
+  password: process.env.DB_PASS,
+  port: Number(process.env.DB_PORT) || 5432
 })
 
-const bcrypt = require('bcrypt')
-
-const attemptSignin = async ({ email, password }) => {
+export const attemptSignin = async ({ email, password }) => {
   let results = await getUser({ email })
   let user = results[0]
   let isMatch = await bcrypt.compare(password, user.password)
@@ -21,6 +26,8 @@ const attemptSignin = async ({ email, password }) => {
 
   console.log(isMatch)
 
+  // npx cross-env DB_USER=jmulder5 DB_PASS=cougar92 ts-node index.ts
+
   if (!user) response.error = 'email'
   else if (!isMatch) response.error = 'password'
   else response.userId = user.user_id
@@ -28,8 +35,8 @@ const attemptSignin = async ({ email, password }) => {
   return response
 }
 
-const getUser = ({ email }) => {
-  return new Promise(function (resolve, reject) {
+export const getUser = ({ email }) => {
+  return new Promise<User[]>(function (resolve, reject) {
     pool.query(
       `SELECT * FROM users where email = $1`,
       [email],
@@ -42,7 +49,8 @@ const getUser = ({ email }) => {
     )
   })
 }
-const createUser = async ({ email, password, user_id }) => {
+
+export const createUser = async ({ email, password, user_id }) => {
   password = await bcrypt.hash(password, 8)
 
   return new Promise(function (resolve, reject) {
@@ -58,7 +66,8 @@ const createUser = async ({ email, password, user_id }) => {
     )
   })
 }
-const deleteUser = (rawId) => {
+
+export const deleteUser = (rawId) => {
   return new Promise(function (resolve, reject) {
     const id = parseInt(rawId)
     pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
@@ -68,11 +77,4 @@ const deleteUser = (rawId) => {
       resolve(`User deleted with ID: ${id}`)
     })
   })
-}
-
-module.exports = {
-  getUser,
-  attemptSignin,
-  createUser,
-  deleteUser
 }

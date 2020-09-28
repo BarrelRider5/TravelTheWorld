@@ -40,3 +40,10 @@ export const signin = async (data) => {
     alert('The email you have entered is not associated with an account')
   else alert('The password you have entered is incorrect')
 }
+
+export const signout = () => {
+  if (window.confirm('Are you sure you want to sign out of this account?')) {
+    localStorage.removeItem('userId')
+    window.location.reload()
+  }
+}
