@@ -40,6 +40,8 @@ const StyledHeader = styled.header`
   align-items: center;
   background: #e8e8e8;
   display: flex;
+  font-size: 14px;
+  font-weight: bold;
   justify-content: space-between;
   padding: 10px;
   width: 100%;
@@ -59,10 +61,13 @@ const List = styled.ul`
 `
 
 const ListItem = styled.li`
+  color: #1a9787;
   cursor: pointer;
   margin: 0 8px;
+  opacity: 0.7;
 
   &:hover {
+    opacity: 1;
     transform: scale(1.05);
   }
 `
