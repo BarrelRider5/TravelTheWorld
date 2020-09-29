@@ -2,14 +2,13 @@ import React from 'react'
 import styled from '@emotion/styled'
 
 import { Dropdown } from './Dropdown/Dropdown'
-import { signout } from '../functions/user'
 
 const choices = {
-  buy: {
+  'buy': {
     link: 'google.com',
     text: 'buy something'
   },
-  sell: {
+  'sell': {
     link: 'amazon.com',
     text: 'sell something'
   }
@@ -26,9 +25,7 @@ export const Header = () => (
       <ListItem>Cool Thingies</ListItem>
       <ListItem>Cool Things</ListItem>
       <ListItem>Click Here</ListItem>
-      {localStorage.getItem('userId') && (
-        <ListItem onClick={signout}>Logout</ListItem>
-      )}
+      <ListItem>Click Here</ListItem>
       <ListItem>
         You Know You Want To
         <Dropdown expanded={true} choices={choices} />

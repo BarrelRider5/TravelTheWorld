@@ -7,12 +7,8 @@ const port = 3001
 
 app.use(express.json())
 app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Credentials', 'true')
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.set('Access-Control-Allow-Origin', '*')
   res.set('Access-Control-Allow-Headers', '*')
-  console.log('here.....')
   next()
 })
 
