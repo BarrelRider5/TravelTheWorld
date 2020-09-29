@@ -4,9 +4,12 @@ import { attemptSignin, createUser, deleteUser, getUser } from './user_model'
 const app = express()
 const port = 3001
 
+
 app.use(express.json())
 app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Credentials', 'true')
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   console.log('here.....')
   next()
 })
