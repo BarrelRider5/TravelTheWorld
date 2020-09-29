@@ -14,6 +14,7 @@ interface Signin {
 export const register = async (data) => {
   const { email } = data
   let user = await getUser(email)
+  console.log('user: ', email, ', ', user)
   user = JSON.parse(user)
   if (user.length) return alert('This user already exists')
 
