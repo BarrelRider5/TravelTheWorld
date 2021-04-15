@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { Home } from './pages/Home'
 import { Profile } from './pages/Profile'
@@ -26,6 +27,7 @@ export const App = () => {
           <Route path="/*" component={userId ? Profile : Home} />
         </Switch>
       </Router>
+      <Footer />
     </div>
   )
 }
