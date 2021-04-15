@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from 'react'
 import styled from '@emotion/styled'
 
+import { Popout } from './Popout'
+
 export const Footer = () => {
   const [{ isOpen, templateName }, setPopout] = useState({
     isOpen: false,
@@ -17,11 +19,10 @@ export const Footer = () => {
   )
 
   const popOut = useCallback(
-    ({ currentTarget: { name } }) => {
-      console.log({ name })
+    ({ currentTarget: { id } }) => {
       setPopout((state) => ({
         ...state,
-        templateName: name,
+        templateName: id,
         isOpen: true
       }))
     }, []
@@ -31,12 +32,12 @@ export const Footer = () => {
     <StyledFooter>
       <List>
         <ListItem>&copy; 2021 TravelWise</ListItem>
-        <ListItem name="contact" onClick={popOut}>Contact Us</ListItem>
-        <ListItem>Terms &amp; Conditions</ListItem>
-        <ListItem>Privacy Policy</ListItem>
+        <ListItem id="contact" onClick={popOut}>Contact Us</ListItem>
+        <ListItem id="terms" onClick={popOut}>Terms &amp; Conditions</ListItem>
+        <ListItem id="privacy" onClick={popOut}>Privacy Policy</ListItem>
       </List>
+      <Popout close={close} isOpen={isOpen} templateName={templateName} />
     </StyledFooter>
-
   )
 }
 // When we hover over an li, make expanded true in that li's dropdown, else make it false
