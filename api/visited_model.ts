@@ -1,47 +1,24 @@
 import { Pool } from 'pg'
 
+export interface Visited {
+  email: string
+  password: string
+  user_id: string
+}
+
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST || 'localhost',
   database: 'travel',
-  password: 'jello111',
-  port: 5432
+  password: process.env.DB_PASS,
+  port: Number(process.env.DB_PORT) || 5432
 })
 
-const bcrypt = require('bcrypt')
-
-const createVisited = async ({ email, password, user_id }) => {
-  password = await bcrypt.hash(password, 8)
-
-  return new Promise(function (resolve, reject) {
+export const getVisited = ({ location_name }) => {
+  return new Promise<Visited[]>(function (resolve, reject) {
     pool.query(
-      `INSERT INTO users (email, password, user_id) VALUES ($1, $2, $3) RETURNING *`,
-      [email, password, user_id],
-      (error, results) => {
-        if (error) {
-          return reject(error)
-        }
-        resolve(`A new user has been added added: ${results.rows[0]}`)
-      }
-    )
-  })
-}
-const deleteVisited = (rawId) => {
-  return new Promise(function (resolve, reject) {
-    const id = parseInt(rawId)
-    pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
-      if (error) {
-        return reject(error)
-      }
-      resolve(`User deleted with ID: ${id}`)
-    })
-  })
-}
-const getVisited = ({ email }) => {
-  return new Promise(function (resolve, reject) {
-    pool.query(
-      `SELECT * FROM users where email = $1`,
-      [email],
+      `SELECT * FROM visited where location_name = $1`,
+      [location_name],
       (error, results) => {
         if (error) {
           return reject(error)
@@ -52,8 +29,29 @@ const getVisited = ({ email }) => {
   })
 }
 
-module.exports = {
-  createVisited,
-  deleteVisited,
-  getVisited
+export const createVisited = async ({ id, location_name, visit_date }) => {
+  return new Promise(function (resolve, reject) {
+    pool.query(
+      `INSERT INTO visited (id, location_name, visit_date) VALUES ($1, $2, $3) RETURNING id`,
+      [location_name, id, visit_date],
+      (error, results) => {
+        if (error) {
+          return reject(error)
+        }
+        resolve(results.rows[0])
+      }
+    )
+  })
+}
+
+export const deleteVisited = (rawId) => {
+  return new Promise(function (resolve, reject) {
+    const id = parseInt(rawId)
+    pool.query('DELETE FROM visited WHERE id = $1', [id], (error, results) => {
+      if (error) {
+        return reject(error)
+      }
+      resolve(`User deleted with ID: ${id}`)
+    })
+  })
 }
