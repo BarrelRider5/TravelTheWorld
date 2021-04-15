@@ -1,28 +1,44 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import styled from '@emotion/styled'
 
-const choices = {
-  'buy': {
-    link: 'google.com',
-    text: 'buy something'
-  },
-  'sell': {
-    link: 'amazon.com',
-    text: 'sell something'
-  }
+export const Footer = () => {
+  const [{ isOpen, templateName }, setPopout] = useState({
+    isOpen: false,
+    templateName: ''
+  })
+
+  const close = useCallback(
+    () => {
+      setPopout((state) => ({
+        ...state,
+        isOpen: false
+      }))
+    }, []
+  )
+
+  const popOut = useCallback(
+    ({ currentTarget: { name } }) => {
+      console.log({ name })
+      setPopout((state) => ({
+        ...state,
+        templateName: name,
+        isOpen: true
+      }))
+    }, []
+  )
+
+  return (
+    <StyledFooter>
+      <List>
+        <ListItem>&copy; 2021 TravelWise</ListItem>
+        <ListItem name="contact" onClick={popOut}>Contact Us</ListItem>
+        <ListItem>Terms &amp; Conditions</ListItem>
+        <ListItem>Privacy Policy</ListItem>
+      </List>
+    </StyledFooter>
+
+  )
 }
-
-export const Footer = () => (
-  <StyledFooter>
-    <List>
-      <ListItem>&copy; 2021 TravelWise</ListItem>
-      <ListItem>Contact Us</ListItem>
-      <ListItem>Terms &amp; Conditions</ListItem>
-      <ListItem>Privacy Policy</ListItem>
-    </List>
-  </StyledFooter>
-)
-
 // When we hover over an li, make expanded true in that li's dropdown, else make it false
 
 const StyledFooter = styled.footer`
