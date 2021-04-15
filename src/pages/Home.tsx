@@ -2,6 +2,7 @@ import React from 'react'
 import { FormWrapper } from '../components/FormWrapper'
 import styled from '@emotion/styled'
 import { Carousel } from '../components/Carousel/Carousel'
+import { TestProfile } from '../components/testprofile'
 
 export const Home = () => {
   return (
@@ -11,6 +12,7 @@ export const Home = () => {
         <div>Welcome Aboard, Explorers!</div>
         <FormWrapper />
       </Wrapper>
+      <TestProfile />
       <Carousel />
     </div>
   )
